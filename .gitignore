@@ -1,0 +1,8 @@
+/wiki.git
+/tmp
+/config/deploy.rb
+/config/deploy/production.rb
+
+*.yml
+
+puma.rb
