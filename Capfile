@@ -16,5 +16,9 @@ require 'capistrano/rbenv'
 require 'capistrano/bundler'
 require 'capistrano/puma'
 
+set :rbenv_type, :system # or :system, depends on your rbenv setup
+set :rbenv_custom_path, '/opt/rbenv'
+set :rbenv_ruby, '2.1.2'
+
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }

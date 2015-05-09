@@ -6,12 +6,11 @@ require 'active_record'
 require 'pg'
 require 'bcrypt'
 
-config = YAML.load(File.read('config/database.yml'))
-ActiveRecord::Base.configurations["development"] = config["development"]
-ActiveRecord::Base.configurations["production"] = config["production"]
-ActiveRecord::Base.configurations["test"] = config["test"]
-ActiveRecord::Base.establish_connection(:development)
-puts ENV["RACK_ENV"]
+date_config = YAML.load(File.read('config/database.yml'))
+ActiveRecord::Base.configurations["development"] = date_config["development"]
+ActiveRecord::Base.configurations["production"] = date_config["production"]
+ActiveRecord::Base.configurations["test"] = date_config["test"]
+ActiveRecord::Base.establish_connection ENV["RACK_ENV"].to_sym
 
 puts ActiveRecord::Base.configurations
 
