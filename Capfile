@@ -13,8 +13,8 @@ require 'capistrano/deploy'
 #
 
 require 'capistrano/rbenv'
-require 'capistrano/bundler'
 require 'capistrano/puma'
+require 'capistrano/bundler'
 
 set :rbenv_type, :system # or :system, depends on your rbenv setup
 set :rbenv_custom_path, '/opt/rbenv'

@@ -4,7 +4,6 @@ require 'gollum/app'
 require 'tilt/erb'
 require 'active_record'
 require 'pg'
-require 'bcrypt'
 
 date_config = YAML.load(File.read('config/database.yml'))
 ActiveRecord::Base.configurations["development"] = date_config["development"]
@@ -14,13 +13,7 @@ ActiveRecord::Base.establish_connection ENV["RACK_ENV"].to_sym
 
 puts ActiveRecord::Base.configurations
 
-class User < ActiveRecord::Base
-  include BCrypt
-  def verify_passwd(pwd)
-    Password.new(self.crypted_password) == pwd
-  end
-end
-
+require "./model/user.rb"
 
 gollum_path = File.expand_path(File.dirname(__FILE__) + '/wiki.git') # CHANGE THIS TO POINT TO YOUR OWN WIKI REPO
 Precious::App.set(:gollum_path, gollum_path)
@@ -45,7 +38,7 @@ class Wuki < Sinatra::Base
 
   post '/auth/login' do
     puts params
-    if user = User.find_by(name: params['username']) and user.verify_passwd(params['password'])
+    if user = User.find_by(email: params['email']) and user.has_password?(params['password'])
       session['user'] = user
       redirect '/'
     else

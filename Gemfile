@@ -8,6 +8,7 @@ gem 'capistrano'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv'
 gem 'capistrano3-puma'
+gem 'thor'
 
 # authen
 gem 'bcrypt'
