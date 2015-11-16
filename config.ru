@@ -15,13 +15,10 @@ puts ActiveRecord::Base.configurations
 
 require "./model/user.rb"
 
-gollum_path = File.expand_path(File.dirname(__FILE__) + '/wiki.git') # CHANGE THIS TO POINT TO YOUR OWN WIKI REPO
-Precious::App.set(:gollum_path, gollum_path)
-Precious::App.set(:default_markup, :markdown) # set your favorite markup language
-Precious::App.set(:wiki_options, {
-		:universal_toc => true,
-		:mathjax => true
-	})
+wiki_config = YAML.load(File.read('gollum_wiki.yml'))
+Precious::App.set(:gollum_path, wiki_config["wiki_path"] + '/' + wiki_config["wiki_repo"])
+Precious::App.set(:default_markup, wiki_config["default_markup"]) # set your favorite markup language
+Precious::App.set(:wiki_options, wiki_config["wiki_options"])
 
 class Wuki < Sinatra::Base
   enable :sessions
