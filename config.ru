@@ -4,6 +4,7 @@ require 'gollum/app'
 require 'tilt/erb'
 require 'active_record'
 require 'pg'
+require 'securerandom'
 
 date_config = YAML.load(File.read('config/database.yml'))
 ActiveRecord::Base.configurations["development"] = date_config["development"]
@@ -21,7 +22,10 @@ Precious::App.set(:default_markup, wiki_config["default_markup"]) # set your fav
 Precious::App.set(:wiki_options, wiki_config["wiki_options"])
 
 class Wuki < Sinatra::Base
-  enable :sessions
+  use Rack::Session::Cookie, :key => 'rack.session',
+                             :path => '/',
+                             :expire_after => 1 * 24 * 60 * 60,
+                             :secret => SecureRandom.hex(128)
   before do
     pass if request.path_info.split('/')[1] == 'auth'
     if !session['user']
