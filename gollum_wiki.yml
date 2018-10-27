@@ -1,0 +1,9 @@
+
+wiki_path: .
+wiki_repo: wiki.git
+
+default_markup: :markdown
+
+wiki_options:
+        :mathjax: true
+        :universal_toc: true
