@@ -3,16 +3,17 @@ source 'https://rubygems.org'
 gem 'puma'
 gem 'gollum'
 
-# deployment
-gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-rbenv'
-gem 'capistrano3-puma'
-gem 'thor'
+group :development do
+	gem 'capistrano'
+	gem 'capistrano-bundler'
+	gem 'capistrano-rbenv'
+	gem 'capistrano3-puma'
+	gem 'thor'
+end 
 
 # authen
 gem 'bcrypt'
 gem "sinatra-activerecord"
-gem 'pg'
+gem 'sqlite3'
 gem 'rake'
 gem 'activerecord'
